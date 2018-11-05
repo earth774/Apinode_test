@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "38c50451-8b37-4002-adf5-8aa96e38b481",
+		"name": "test_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addData",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Earth\",\n\t\"telephone\":\"086-4280331\",\n\t\"address\":\"12 หมู่ 10 ต.แม่เปา อ.พญาเม็งราย จ.เชียงราย\"\n}"
+				},
+				"url": "{{host}}/addData"
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "{{host}}/getData"
+			},
+			"response": []
+		},
+		{
+			"name": "updateData",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"earth\",\n\t\"telephone\":\"086-4280331\",\n\t\"address\":\"12 หมู่ 10 ต.แม่เปา อ.พญาเม็งราย จ.เชียงราย\"\n}"
+				},
+				"url": "{{host}}/updateData/12"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteData",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "{{host}}/deleteData/13"
+			},
+			"response": []
+		}
+	]
+}
