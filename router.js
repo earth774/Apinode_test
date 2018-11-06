@@ -7,7 +7,9 @@ var app = express()
 var jsonParser = bodyParser.json()
 
 app.use(function (req, res, next) {
-  console.log('Time:', Date.now())
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
+  res.set('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token');
   next()
 })
 
