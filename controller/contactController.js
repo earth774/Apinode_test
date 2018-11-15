@@ -1,5 +1,23 @@
 var mysql = require('mysql');
 const util = require('util');
+const validate = require("validate.js");
+const validate_rules = {
+  name: {
+    presence: {
+      allowEmpty: false
+    },
+  },
+  telephone: {
+    presence: {
+      allowEmpty: false
+    }
+  },
+  address: {
+    presence: {
+      allowEmpty: false
+    }
+  }
+};
 var con = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -24,6 +42,15 @@ contact.getAll = async (req, res) => {
 }
 
 contact.getID = async (req, res) => {
+  let id = req.params.id;
+  const errors = validate({
+    id
+  }, {
+    id: {
+      numericality: true
+    }
+  });
+  if (errors) res.responseRequestError(errors);
   let result = selectID(req.params.id)
   if (result)
     res.responseRequestSuccess(result);
@@ -38,8 +65,10 @@ selectID = async (id) => {
 
 // Add data Contact 
 contact.addData = async (req, res) => {
-  var sql = "INSERT INTO contact (name, address,telephone) VALUES (?,?,?)";
-  let result = await query(sql, [req.body.name, req.body.address, req.body.telephone]);
+  const errors = validate(req.body, validate_rules);
+  if (errors) res.responseRequestError(errors);
+  var sql = "INSERT INTO contact (name, address,telephone,created_at,updated_at) VALUES (?,?,?,?,?)";
+  let result = await query(sql, [req.body.name, req.body.address, req.body.telephone, new Date(), new Date()]);
   if (result)
     res.responseRequestSuccess(await selectID(result.insertId));
   else
@@ -48,8 +77,18 @@ contact.addData = async (req, res) => {
 
 // Update data Contact
 contact.updateData = async (req, res) => {
-  var sql = `UPDATE contact SET name = ?,address = ?, telephone = ? WHERE id = ?`;
-  let result = await query(sql, [req.body.name, req.body.address, req.body.telephone, req.params.id]);
+  let id = req.params.id;
+  const errors = validate(req.body, validate_rules);
+  const errorsId = validate({
+    id
+  }, {
+    id: {
+      numericality: true
+    }
+  });
+  if (errors || errorsId) res.responseRequestError(errors || errorsId);
+  var sql = `UPDATE contact SET name = ?,address = ?, telephone = ? , updated_at = ? WHERE id = ?`;
+  let result = await query(sql, [req.body.name, req.body.address, req.body.telephone, new Date(), req.params.id]);
   if (result)
     res.responseRequestSuccess(await selectID(req.params.id));
   else

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2018 at 05:08 PM
+-- Generation Time: Nov 15, 2018 at 06:05 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -32,7 +32,9 @@ CREATE TABLE `contact` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL,
-  `telephone` varchar(20) NOT NULL
+  `telephone` varchar(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

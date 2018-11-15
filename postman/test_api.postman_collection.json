@@ -27,7 +27,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "{{host}}/getData/12"
+				"url": "{{host}}/getData/ww"
 			},
 			"response": []
 		},
